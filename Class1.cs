@@ -17,7 +17,8 @@ namespace Video
         public SayaTubeVideo(string judul_video)
         {
             Random random = new Random();
-
+            Debug.Assert(!string.IsNullOrEmpty(judul_video), "Judul tidak boleh kosong");
+            Debug.Assert(judul_video.Length <= 200, "Panjang judul tidak boleh melebihi 100 karakter");
             this.title = judul_video;
             this.id = random.Next(10000, 99999);
             this.playCount = 0;
@@ -25,8 +26,16 @@ namespace Video
 
         public void IncreasePlayCount(int playCount)
         {
-             int tes = this.playCount + playCount;
-             this.playCount = tes;
+            Debug.Assert(playCount <= 25000000, "maksimum penambahan play count adalah 25.000.000 untuk setiap panggilan");
+            try
+            {
+                int tes = checked(this.playCount + playCount);
+                this.playCount = tes;
+            }
+            catch (Exception overFlow)
+            {
+                Console.WriteLine(overFlow.Message);
+            }
         }
         public int getPlayCount()
         {

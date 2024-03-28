@@ -49,5 +49,6 @@ internal class Program
         user1.addVideo(video10);
 
         user1.PrintAllVideoPlayCount();
+        user1.getTotalVideoPlayCount();
     }
 }
